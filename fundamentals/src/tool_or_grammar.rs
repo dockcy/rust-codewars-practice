@@ -31,3 +31,13 @@ fn accum(s: &str) -> String {
         .collect::<Vec<String>>()
         .join("-")
 }
+
+// tuple的妙处
+// 该题位于date/date_20211213.rs
+fn product_fib(prod: u64) -> (u64, u64, bool) {
+    let mut fib = (0, 1);
+    while fib.0 * fib.1 < prod {
+        fib = (fib.1, fib.0 + fib.1);
+    }
+    (fib.0, fib.1, fib.0 * fib.1 == prod)
+}
