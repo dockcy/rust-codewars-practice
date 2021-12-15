@@ -41,3 +41,18 @@ fn product_fib(prod: u64) -> (u64, u64, bool) {
     }
     (fib.0, fib.1, fib.0 * fib.1 == prod)
 }
+
+// 质因数分解
+fn prime_factors(n: i64) -> Vec<i64> {
+    let mut candidate = 2..;
+    let mut factors = vec!();
+    let mut n  = n;
+    while n > 1 {
+        let x = candidate.next().unwrap();
+        while n % x == 0 {
+            n /= x;
+            factors.push(x);
+        }
+    }
+    factors
+}
