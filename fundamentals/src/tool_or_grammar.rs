@@ -1,3 +1,5 @@
+use std::ops::Add;
+
 use regex::Regex;
 // 四舍五入
 fn litres(time: f64) -> i32 {
@@ -45,8 +47,8 @@ fn product_fib(prod: u64) -> (u64, u64, bool) {
 // 质因数分解
 fn prime_factors(n: i64) -> Vec<i64> {
     let mut candidate = 2..;
-    let mut factors = vec!();
-    let mut n  = n;
+    let mut factors = vec![];
+    let mut n = n;
     while n > 1 {
         let x = candidate.next().unwrap();
         while n % x == 0 {
@@ -55,4 +57,38 @@ fn prime_factors(n: i64) -> Vec<i64> {
         }
     }
     factors
+}
+
+/// 全组合的实现
+/// list 原始数组
+/// k 每一个组中得到数字个数
+/// start_pos 每一次DFS从数组的start_pos开始
+/// path 每一个组合
+/// ans 所有的组合
+pub fn combine(
+    list: &Vec<i32>,
+    k: usize,
+    start_pos: usize,
+    path: &mut Vec<i32>,
+    ans: &mut Vec<Vec<i32>>
+) {
+    if path.len() == k {
+        ans.push(path.clone());
+        return;
+    }
+    for (i,&num) in list[start_pos..].to_vec().iter().enumerate() {
+        path.push(num);
+        combine(list, k, start_pos + 1, path, ans);
+        path.pop();
+    }
+}
+
+fn alphabet_position(text: &str) -> String {
+    // Code here...
+    let alphabet_map = ('a'..='z').enumerate().map(|(i,c)| (c,(i+1).to_string())).collect::<std::collections::HashMap<char,String>>();
+    text.chars()
+    .map(|c|  match alphabet_map.get(&c.to_ascii_lowercase()){
+        Some(s) => s.clone() + " ",
+        _ => "".to_string(),
+    }).collect::<String>().trim().to_string()
 }
