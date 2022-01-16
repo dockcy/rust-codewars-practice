@@ -23,6 +23,37 @@ fn how_much(m: i32, n: i32) -> Vec<(String, String, String)> {
         .collect::<Vec<(String, String, String)>>()
 }
 
+/// 比较美观的解法
+/// fn encrypt_this(text: &str) -> String {
+/// text.split_whitespace()
+/// .map(|s| {
+///     let mut chars = s.chars().collect::<std::collections::VecDeque<_>>();
+///     match chars.len() {
+///         0 => unreachable!(),
+///         1 => format!("{0}", chars.pop_front().unwrap() as u8),
+///         2 => format!(
+///             "{0}{1}",
+///             chars.pop_front().unwrap() as u8,
+///             chars.iter().collect::<String>()
+///         ),
+///         3 => format!(
+///             "{0}{1}{2}",
+///             chars.pop_front().unwrap() as u8,
+///             chars.pop_back().unwrap(),
+///             chars.pop_front().unwrap()
+///         ),
+///         _ => format!(
+///             "{0}{1}{3}{2}",
+///             chars.pop_front().unwrap() as u8,
+///             chars.pop_back().unwrap(),
+///             chars.pop_front().unwrap(),
+///             chars.iter().collect::<String>()
+///         ),
+///     }
+/// })
+/// .collect::<Vec<String>>()
+/// .join(" ")
+/// }
 fn encrypt_this(text: &str) -> String {
     text.split(' ')
         .map(|word| {
@@ -41,6 +72,8 @@ fn encrypt_this(text: &str) -> String {
         .collect::<Vec<_>>()
         .join(" ")
 }
+
+
 
 #[cfg(test)]
 mod date20220102_tests {
