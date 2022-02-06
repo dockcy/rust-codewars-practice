@@ -70,13 +70,13 @@ pub fn combine(
     k: usize,
     start_pos: usize,
     path: &mut Vec<i32>,
-    ans: &mut Vec<Vec<i32>>
+    ans: &mut Vec<Vec<i32>>,
 ) {
     if path.len() == k {
         ans.push(path.clone());
         return;
     }
-    for (i,&num) in list[start_pos..].to_vec().iter().enumerate() {
+    for (i, &num) in list[start_pos..].to_vec().iter().enumerate() {
         path.push(num);
         combine(list, k, start_pos + 1, path, ans);
         path.pop();
@@ -85,10 +85,41 @@ pub fn combine(
 
 fn alphabet_position(text: &str) -> String {
     // Code here...
-    let alphabet_map = ('a'..='z').enumerate().map(|(i,c)| (c,(i+1).to_string())).collect::<std::collections::HashMap<char,String>>();
+    let alphabet_map = ('a'..='z')
+        .enumerate()
+        .map(|(i, c)| (c, (i + 1).to_string()))
+        .collect::<std::collections::HashMap<char, String>>();
     text.chars()
-    .map(|c|  match alphabet_map.get(&c.to_ascii_lowercase()){
-        Some(s) => s.clone() + " ",
-        _ => "".to_string(),
-    }).collect::<String>().trim().to_string()
+        .map(|c| match alphabet_map.get(&c.to_ascii_lowercase()) {
+            Some(s) => s.clone() + " ",
+            _ => "".to_string(),
+        })
+        .collect::<String>()
+        .trim()
+        .to_string()
+}
+
+/// Greatest common Divisor
+///
+pub fn gcd(m: i64, n: i64) -> i64 {
+    if m == 0 || n == 0 {
+        return 0;
+    }
+    let mut a = m;
+    let mut b = n;
+    if a > b {
+       while a % b != 0 {
+           let tmp = a;
+           a = b;
+           b = tmp % b;
+       }
+       b
+    } else {
+        while b % a != 0 {
+            let tmp = b;
+            b = a;
+            a = tmp % a;
+        }
+        a
+    }
 }
